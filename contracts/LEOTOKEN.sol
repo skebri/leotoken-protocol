@@ -986,7 +986,7 @@ contract LEO is Context, IBEP20, Ownable, ReentrancyGuard {
             uint256 bnbToBeAddedToLiquidity = deltaBalance.div(3);
 
             // add liquidity to pancake
-            Utils.addLiquidity(address(pancakeRouter), owner(), otherPiece, bnbToBeAddedToLiquidity);
+            Utils.addLiquidity(address(pancakeRouter), owner(), piece, bnbToBeAddedToLiquidity);
 
             emit SwapAndLiquify(piece, deltaBalance, otherPiece);
         }
