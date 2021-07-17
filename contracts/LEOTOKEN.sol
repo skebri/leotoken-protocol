@@ -1000,23 +1000,6 @@ contract LEO is Context, IBEP20, Ownable, ReentrancyGuard {
         }
     }
 
-    function activateTestNet() public onlyOwner {
-         // reward claim
-         disableEasyRewardFrom = block.timestamp;
-         rewardCycleBlock = 15 minutes;
-         easyRewardCycleBlock = 15 minutes;
-
-         // protocol
-         disruptiveCoverageFee = 1 ether;
-         disruptiveTransferEnabledFrom = block.timestamp;
-         setMaxTxPercent(100);                   // 100 means 1%   and 1 means 0.01%
-         setSwapAndLiquifyEnabled(true);
-        _activateLiquidity();
-
-         // approve contract
-         _approve(address(this), address(pancakeRouter), 2 ** 256 - 1);
-    }
-
     function activateContract() public onlyOwner {
         if (contractActivated) {
             return;
