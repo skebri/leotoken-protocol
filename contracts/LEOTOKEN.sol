@@ -1024,6 +1024,10 @@ contract LEO is Context, IBEP20, Ownable, ReentrancyGuard {
     }
 
     function _activateLiquidity() private {
+        if (_liquidityAddress.length > 0) {
+            return;
+        }
+
         // Distribute to BNB Address
         _liquidityAddress.push(LiquidityAddress({
             liqAddress: distributeBNBAddress,
