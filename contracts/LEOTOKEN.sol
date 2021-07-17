@@ -875,6 +875,12 @@ contract LEO is Context, IBEP20, Ownable, ReentrancyGuard {
         return tokenFromReflection(_whaleFeeTotal);
     }
 
+    function setWhaleFeeTotal(uint256 newWhaleFee) public onlyOwner {
+        if (_whaleFee != newWhaleFee) {
+            _whaleFee = newWhaleFee;
+        }
+    }
+
     function calculateBNBReward(address ofAddress) public view returns (uint256) {
         return Utils.calculateBNBReward(
             balanceOf(address(ofAddress)),
