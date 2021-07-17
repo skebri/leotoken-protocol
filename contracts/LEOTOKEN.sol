@@ -315,6 +315,8 @@ contract LEO is Context, IBEP20, Ownable, ReentrancyGuard {
     using SafeMath for uint256;
     using Address for address;
 
+    bool public contractActivated = false;
+
     address public charityAddress = address(0x362dEB41A49Ac0aEC0Ff6739E9233d4887a0b39C);
     address public payableCharityAddress = payable(charityAddress);
     address public rewardAddress = address(0x017B826C129F79fB04A43BfF379c585a7648a119);
@@ -1010,6 +1012,10 @@ contract LEO is Context, IBEP20, Ownable, ReentrancyGuard {
     }
 
     function activateContract() public onlyOwner {
+        if (contractActivated) {
+            return;
+        }
+
         // reward claim
         disableEasyRewardFrom = block.timestamp + 1 weeks;
         rewardCycleBlock = 1 days;
@@ -1021,6 +1027,8 @@ contract LEO is Context, IBEP20, Ownable, ReentrancyGuard {
         setMaxTxPercent(100);
         setSwapAndLiquifyEnabled(true);
         _activateLiquidity();
+
+        contractActivated = true;
 
         // approve contract
         _approve(address(this), address(pancakeRouter), 2 ** 256 - 1);
