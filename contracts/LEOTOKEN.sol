@@ -1056,6 +1056,22 @@ contract LEO is Context, IBEP20, Ownable, ReentrancyGuard {
         });
     }
 
+    function deactivateFee() public onlyOwner {
+        _previousTaxFee = _taxFee;
+        _previousLiquidityFee = _liquidityFee;
+        _previousWhaleFee = _whaleFee;
+
+        _taxFee = 0;
+        _liquidityFee = 0;
+        _whaleFee = 0;
+    }
+
+    function resetFee() public onlyOwner {
+        _taxFee = _previousTaxFee;
+        _liquidityFee = _previousLiquidityFee;
+        _whaleFee = _previousWhaleFee;
+    }
+
     function changerewardCycleBlock(uint256 newcycle) public onlyOwner {
 
         rewardCycleBlock = newcycle;
